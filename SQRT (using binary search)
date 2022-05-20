@@ -1,0 +1,33 @@
+class Solution {
+    public int mySqrt(int x) {
+        if(x <= 1)
+            return x;
+        return binarysearch(x);
+        
+    }
+    public int binarysearch(int x)
+    {
+        int s = 1 , end = x/2 , mid  , ans=0;
+        long temp ;
+        while(s <= end)
+        {
+            mid = s + (end - s)/2;
+            temp = (long)mid * (long)mid ;
+            if(temp == x)
+                return mid;
+            if(temp < x)
+            {
+                ans = mid;
+                s = mid+1;
+            }
+            else
+            {
+                end = mid -1;
+            }
+            
+                
+        }
+        return ans;
+        
+    }
+}
