@@ -1,0 +1,18 @@
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        int l = 1 , end = n-1 , mid , res = 0;
+        while(l <= end)
+        {
+            mid = l + (end - l)/2;
+            res = guess(mid);
+            if(res == 0)
+                return mid;
+            if(res > 0)
+                l = mid + 1;
+            if(res < 0) 
+                end = mid -1;
+            
+        }
+        return l;
+    }
+}
