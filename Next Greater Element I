@@ -1,0 +1,38 @@
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int [] nge = nextGreaterRight(nums2);
+        
+        HashMap<Integer, Integer >  hm = new HashMap<>();
+        
+        for(int i = 0 ; i < nums2.length ; i ++){
+            hm.put(nums2[i] , nge[i]);
+        }
+        int ans [] = new int[nums1.length];
+        
+        for(int i = 0 ; i < nums1.length ; i++){
+            ans[i] = hm.get(nums1[i]);
+        }
+        return ans;
+    }
+    public int[] nextGreaterRight(int [] arr ){
+        int n = arr.length;
+        int ans [] = new int[n];
+
+        Stack<Integer> st = new Stack<>();
+        st.push(arr[n-1]);
+        ans[n-1] = -1;
+        
+        for(int i = n-2; i >= 0 ; i--){
+            while(st.size()>0 && arr[i] > st.peek()){
+                st.pop();
+            }
+            if(st.size()==0){
+                ans[i] = -1;
+            }else{
+                ans[i] = st.peek();
+            }
+            st.push(arr[i]);
+        }
+        return ans;
+    }
+}
