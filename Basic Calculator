@@ -1,0 +1,33 @@
+class Solution {
+    
+    public int calculate(String s) {
+        int sum = 0 , sign = 1;
+        Stack<Integer> st = new Stack<>();
+        for(int i = 0 ; i < s.length() ; i++){
+            char c = s.charAt(i);
+            
+            if(Character.isDigit(c)){
+                int val = 0;
+                while(i < s.length() && Character.isDigit(s.charAt(i))){
+                    val = val * 10 + (s.charAt(i) - '0');
+                    i++;
+                }
+                i--;
+                val = val *sign;
+                sign = 1;
+                sum += val;
+            }else if(c == '('){
+                st.push(sum); // first push sum then push sign
+                st.push(sign);
+                sum = 0;
+                sign = +1;
+            }else if(c == ')'){
+                sum *= st.pop(); // multiply by sign
+                sum += st.pop(); // add by previous sum
+            }else if(c == '-'){
+                sign *= -1;
+            }
+        }
+        return sum;
+    }
+}
