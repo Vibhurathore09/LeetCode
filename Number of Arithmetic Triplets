@@ -1,0 +1,13 @@
+class Solution {
+    public int arithmeticTriplets(int[] nums, int diff) {
+        int cnt = 0;
+        Set<Integer> seen = new HashSet<>();
+        for (int num : nums) {
+            if (seen.contains(num - diff) && seen.contains(num - diff * 2)) { //Here num - diff checks if (7-3 == 4) is present in set or not && then it checks if num - diff*2 i.e. (7-6 == 1) is present in set or not , if both are present then cnt++;
+                ++cnt;
+            }
+            seen.add(num);
+        }
+        return cnt;
+    }
+}
