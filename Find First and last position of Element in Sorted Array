@@ -1,0 +1,47 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int n = nums.length;
+        int s[] = new int[2];
+        s[0] = firstOccurence(nums , target);
+        s[1] = lastOccurence(nums,target);
+        return s;
+    }
+    public static int firstOccurence(int []a , int target){
+        int s = 0;
+        int e = a.length-1;
+        int ans = -1;
+        while(s <= e){
+            int mid = s+(e-s)/2;
+            if(a[mid] == target){
+                ans = mid;
+                e = mid-1;
+            }
+            else if (a[mid] < target){
+                s = mid+1;
+            }else if(a[mid]>target){
+                e = mid-1;
+            }
+            mid = s+(e-s)/2;
+        }
+        return ans;
+    }
+    public static int lastOccurence(int []a , int target){
+        int s=  0;
+        int e = a.length-1;
+        int ans = -1;
+        while(s <= e){
+            int mid = s+(e-s)/2;
+            if(a[mid] == target){
+                ans = mid;
+                s = mid+1;
+            }
+            else if (a[mid] < target){
+                s = mid+1;
+            }else if(a[mid]>target){
+                e = mid-1;
+            }
+            mid = s+(e-s)/2;
+        }
+        return ans;
+    }
+}
