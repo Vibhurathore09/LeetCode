@@ -1,0 +1,23 @@
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int ans = slidingWindow(nums , k);
+        return ans;
+    }
+    public static int slidingWindow(int []nums , int k){
+        int prod = 1;
+        int c = 0;
+        int n = nums.length;
+        int si =0, ei = 0;
+        while(n>ei){
+            //Window Grow
+            prod *= nums[ei];
+            while(prod >= k && si <= ei){ //Window Shirnk
+                prod = prod/nums[si];
+                si++;
+            }
+            c = c + ei - si +1;
+            ei++;
+        }
+        return c;
+    }
+}
