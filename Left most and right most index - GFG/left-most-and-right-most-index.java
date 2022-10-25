@@ -1,0 +1,110 @@
+//{ Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class pair  {  
+    long first, second;  
+    public pair(long first, long second)  
+    {  
+        this.first = first;  
+        this.second = second;  
+    }  
+}
+
+class GFG {
+	public static void main(String[] args) throws IOException
+	{
+	        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t =
+            Integer.parseInt(br.readLine().trim()); // Inputting the testcases
+        while(t-->0)
+        {
+            long n = Long.parseLong(br.readLine().trim());
+            long a[] = new long[(int)(n)];
+            // long getAnswer[] = new long[(int)(n)];
+            String inputLine[] = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                a[i] = Long.parseLong(inputLine[i]);
+            }
+            long k = Long.parseLong(br.readLine().trim());
+            
+            Solution obj = new Solution();
+            pair ans = obj.indexes(a, k);
+            if (ans.first == -1 && ans.second == -1)
+                System.out.println(-1);
+            else
+                System.out.println(ans.first+" "+ans.second);
+            
+        }
+	}
+}
+
+
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+/*
+class pair  {  
+    long first, second;  
+    public pair(long first, long second)  
+    {  
+        this.first = first;  
+        this.second = second;  
+    }  
+}
+*/
+
+class Solution {
+    
+    public pair indexes(long v[], long x)
+    {
+        // Your code goes here
+        int lb = lowerbound(v , x);
+        int ub = upperbound(v , x);
+        pair p = new pair(lb , ub);
+        return p;
+    }
+    public static int lowerbound(long a[] , long x){
+        int si = 0; 
+        int ans = -1;
+        int ei = a.length-1;
+        while(si <= ei){
+            int mid = (ei-si)/2 + si;
+            if(a[mid] == x){
+                ans = mid;
+                ei = mid-1;
+            }else if(a[mid] > x){
+                ei = mid-1;
+            }
+            else{
+                si = mid+1;
+            }
+        }
+        return ans;
+    }
+    public static int upperbound(long a[] , long x){
+        int si = 0 ;
+        int ans = -1;
+        int ei = a.length-1;
+        while(si <= ei){
+            int mid = (ei-si)/2 + si;
+            if(a[mid] == x){
+                ans = mid;
+                si = mid+1;
+            }
+            else if(a[mid] > x){
+                ei = mid-1;
+            }
+            else{
+                si  =mid+1;
+            }
+        }
+        return ans;
+    }
+}
