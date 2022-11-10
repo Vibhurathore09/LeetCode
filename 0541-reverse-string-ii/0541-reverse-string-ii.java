@@ -9,11 +9,11 @@ class Solution {
             swap(ch , i , j);
             i+=2*k;
         }
-        String s1 = "";
-        for(char c : ch){
-            s1+=c;
-        }
-        return s1;
+        // String s1 = "";
+        // for(char c : ch){
+        //     s1+=c;
+        // }
+        return String.valueOf(ch);
     }
     public static void swap (char ch [] , int i , int j){
         while(i < j){
