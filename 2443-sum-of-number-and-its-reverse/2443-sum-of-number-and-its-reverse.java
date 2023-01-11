@@ -5,14 +5,20 @@ class Solution {
             return true;
         }
         for(int i =1 ; i < num ; i++){
-            String s = ""+i;
-            StringBuilder str = new StringBuilder(s);
-            StringBuilder x = str.reverse();
-            int val = Integer.parseInt(x.toString());
-            if(val + i == num){
+            if(reverse(i)+i == num){
                 return true;
             }
         }
         return false;
+    }
+    public int reverse(int n){
+        int x = 0;
+        while(n!= 0){
+            int d = n%10;
+            x = x*10 + d;
+            n = n/10;
+        }
+        return x;
+        
     }
 }
