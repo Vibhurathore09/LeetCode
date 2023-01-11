@@ -127,24 +127,24 @@ class Node{
 class Solution{
     public void toSumTree(Node root){
          //add code here.
-         findSum(root);
+        findSum(root);
          
     }
     public int findSum(Node root){
-        if(root.left == null && root.right == null){
+        if(root.right == null && root.left == null){
             int val = root.data;
             root.data = 0;
             return val;
         }
-        int currVal = root.data;
-        int a = 0 , b=  0;
+        int a = 0  , b = 0;
+        int curr = root.data;
         if(root.left != null){
             a = findSum(root.left);
         }
         if(root.right != null){
-            b = findSum(root.right);
+            b=  findSum(root.right);
         }
         root.data = a+b;
-        return root.data + currVal;
+        return root.data + curr;
     }
 }
