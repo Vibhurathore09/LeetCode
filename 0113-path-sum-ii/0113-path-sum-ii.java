@@ -14,23 +14,24 @@
  * }
  */
 class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        pathSum(root, sum, new ArrayList<Integer>(), res);
-        return res;
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> ans = new ArrayList<>();
+        hasPathSum(root , targetSum , ans , new ArrayList<>());
+        return ans;
     }
-    public List<List<Integer>> pathSum(TreeNode root , int sum , ArrayList<Integer> a , List<List<Integer>> res){
+    public List<List<Integer>> hasPathSum(TreeNode root , int targetSum , List<List<Integer>> ans , ArrayList<Integer> sol){
         if(root == null){
-            return res;
+            return ans;
         }
-        a.add(root.val);
-        if(root.left == null && root.right == null && sum-root.val == 0){
-            res.add( new ArrayList<Integer>(a));
-        }else{
-            pathSum(root.left , sum-root.val , a , res);
-            pathSum(root.right , sum-root.val , a , res);
+        sol.add(root.val);
+        if(root.left == null && root.right == null && targetSum - root.val == 0){
+            ans.add(new ArrayList<Integer>(sol));
         }
-        a.remove(a.size()-1);
-        return res;
+        else{
+            hasPathSum(root.left , targetSum-root.val , ans , sol);
+            hasPathSum(root.right , targetSum - root.val , ans , sol);
+        }
+        sol.remove(sol.size()-1);
+        return ans;
     }
 }
