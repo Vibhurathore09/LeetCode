@@ -1,20 +1,22 @@
 class Solution {
-    static  List<List<Integer>> resultList = new ArrayList<>();
-     private void getcomb(int[] nums, int i, int t, List<Integer>cur, List<List<Integer>> res){
-        if(t == 0){
-            res.add(new ArrayList<Integer>(cur));
-            return;
-        }
-        if(t < 0 || i >= nums.length) return;
-        for(int k = i ; k < nums.length; k++){
-            cur.add(nums[k]);
-            getcomb(nums, k, t-nums[k], cur, res);
-            cur.remove(cur.size() - 1);
-        }
-    }
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        getcomb(candidates, 0, target, new ArrayList<>(), res);
-        return res;
+        List<List<Integer>> list = new ArrayList<>();
+        combinations(list , new ArrayList<Integer>() , target , 0 , candidates );
+        return list;
+    }
+    public static void combinations(List<List<Integer>> list , ArrayList<Integer> ans , int target, int i, int [] arr ){
+        if(i == arr.length){
+            if( target == 0){
+                list.add(new ArrayList<>(ans));
+            }
+            return ;
+        }
+        
+        if(arr[i] <= target){
+            ans.add(arr[i]);
+            combinations(list , ans , target-arr[i] , i,  arr );
+            ans.remove(ans.size()-1);
+        }
+        combinations(list , ans , target , i+1  , arr);
     }
 }
