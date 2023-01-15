@@ -1,20 +1,20 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
-        permutation(nums , list , new ArrayList<>());
+        permutation(list , new ArrayList<Integer>() , nums , 0);
         return list;
     }
-    public static void permutation(int [] nums , List<List<Integer>> list , List<Integer> arr){
-        if(arr.size() == nums.length){
-            list.add(new ArrayList<>(arr));
-        }
+    public static void permutation(List<List<Integer>> list , ArrayList<Integer> sol , int [] nums , int idx){
+        if(sol.size() == nums.length){
+            list.add(new ArrayList<Integer>(sol));
+        }    
         for(int i = 0; i < nums.length ; i++){
-            if(arr.contains(nums[i])){
+            if(sol.contains(nums[i])){
                 continue;
             }
-            arr.add(nums[i]);
-            permutation(nums , list , arr);
-            arr.remove(arr.size()-1);
+            sol.add(nums[i]);
+            permutation(list , sol , nums , idx+1);
+            sol.remove(sol.size()-1);
         }
     }
 }
