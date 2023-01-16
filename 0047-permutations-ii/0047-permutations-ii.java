@@ -1,28 +1,32 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
+        List<Integer> sol = new ArrayList<>();
+        boolean [] used = new boolean[nums.length];
         Arrays.sort(nums);
-        
-        permutation(nums , list , new ArrayList<>() , new boolean[nums.length]);
+        backtracking(list , sol , nums , used);
         return list;
+        
     }
-    public static void permutation(int [] nums , List<List<Integer>> list , List<Integer> a , boolean [] safe){
-        if(a.size() == nums.length){
-            list.add(new ArrayList<>(a));
-        }
-        else{
-            for(int i = 0 ;  i < nums.length ; i++){
-                if(safe[i] || i>0 && nums[i]==nums[i-1] && !safe[i-1])
-                {
-                    continue;
-                }
-                safe[i]=true;
-                a.add(nums[i]);
-                permutation(nums,list,a,safe);
-                safe[i]=false;
-                a.remove(a.size()-1);
-            }
+    public static void backtracking(List<List<Integer>> list , List<Integer> sol , int [] nums , boolean [] used){
+        if (sol.size()== nums.length){
+            list.add(new ArrayList<Integer>(sol));
+            return;
         }
         
+        for(int i = 0 ; i < nums.length ; i++){
+            if(used[i]){
+                continue;
+            }
+            if(i > 0 && nums[i] == nums[i-1] && !used[i-1]){
+                continue;
+            }
+            used[i] = true;
+            sol.add(nums[i]);
+            backtracking(list , sol , nums , used);
+            
+            used[i] = false;
+            sol.remove(sol.size()-1);
+        }
     }
 }
