@@ -10,9 +10,10 @@ public class Solution {
             int levelNum = queue.size();
             List<Integer> subList = new LinkedList<Integer>();
             for(int i=0; i<levelNum; i++) {
-                if(queue.peek().left != null) queue.offer(queue.peek().left);
-                if(queue.peek().right != null) queue.offer(queue.peek().right);
-                subList.add(queue.poll().val);
+                TreeNode curr = queue.poll();
+                if(curr.left != null) queue.offer(curr.left);
+                if(curr.right != null) queue.offer(curr.right);
+                subList.add(curr.val);
             }
             wrapList.add(subList);
         }
