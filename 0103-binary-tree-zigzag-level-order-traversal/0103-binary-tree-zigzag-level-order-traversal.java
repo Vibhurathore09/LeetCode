@@ -1,43 +1,38 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null) return result;
-        
         Deque<TreeNode> q = new LinkedList<>();
+        List<List<Integer>> list = new ArrayList<>();
+        if(root == null){
+            return list;
+        }
+        boolean flag = true;
         q.offer(root);
-        boolean flag = true; // Take flag for reverseing the list;
-        while(!q.isEmpty()) {
-            int size = q.size();
+        while(!q.isEmpty()){
             List<Integer> l = new ArrayList<>();
-            while (size-- > 0) {
-                TreeNode t = flag ? q.poll() : q.pollLast();
-                l.add(t.val);
-                if (flag) {
-                    if (t.left != null) q.offer(t.left);
-                    if (t.right != null) q.offer(t.right);
-                } else {
-                    if (t.right != null) q.offerFirst(t.right);
-                    if (t.left != null) q.offerFirst(t.left);
+            int size = q.size();
+            while(size --> 0){
+                TreeNode curr = flag ? q.poll() : q.pollLast();
+                l.add(curr.val);
+                if(flag ){
+                    if(curr.left != null){
+                        q.offer(curr.left);
+                    }if(curr.right != null){
+                        q.offer(curr.right);
+                    }
+                }else{
+                    if(curr.right!=null){
+                        q.offerFirst(curr.right);   
+                    }
+                    if(curr.left != null){
+                        q.offerFirst(curr.left);
+                    }
                 }
             }
-            if (l.size() > 0) result.add(l);
+            if (l.size() > 0) list.add(l);
             flag = !flag;
         }
-        return result;
+        return list;
+        
     }
 }
