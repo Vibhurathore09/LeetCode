@@ -29,28 +29,32 @@ class Solution {
     
         int n= arr.length;
         int p = 0;
-        for(int i = n-2 ; i>=0 ;i--){
+        
+        for(int i = n-2 ; i >= 0 ; i--){
             if(arr[i] < arr[i+1]){
                 p = i;
                 break;
             }
         }
         int q = 0;
-        for(int i = n-1 ; i > p ; i--){
+        for(int i = n-1 ; i >= p ; i--){
             if(arr[i] > arr[p]){
                 q = i;
                 break;
             }
         }
-        if(p == 0 && q == 0){
-            Range_reverse(arr , 0 , n-1);
+        if(p == 0 && q== 0){
+            Range_reverse(arr , 0, n-1);
             return;
-        }else{
+        }
+        else{
             int temp = arr[p];
             arr[p] = arr[q];
             arr[q] = temp;
             Range_reverse(arr , p+1 , n-1);
         }
+        
+        
     }public static void Range_reverse(int []arr , int i , int j){
         while(i < j){
             int temp = arr[i];
