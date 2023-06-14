@@ -1,24 +1,19 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1)
-			return intervals;
-
-		// Sort by ascending starting point
-		Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
-
-		List<int[]> result = new ArrayList<>();
-		int[] newInterval = intervals[0]; // first starting and ending point (1,3) are in newInterval
-        
-		result.add(newInterval);
-		for (int[] interval : intervals) {
-			if (interval[0] <= newInterval[1]) // Overlapping intervals, move the end if needed
-				newInterval[1] = Math.max(newInterval[1], interval[1]);
-			else {                             // Disjoint intervals, add the new interval to the list
-				newInterval = interval;
-				result.add(newInterval);
-			}
-		}
-		return result.toArray(new int[result.size()][]);
-        
+        Arrays.sort(intervals , (a,b)->Integer.compare(a[0],b[0]));
+        ArrayList<int []> arr = new ArrayList<>();
+        for(int [] a: intervals ){
+            if(arr.size() == 0){ // if empty add new interval
+                arr.add(a);
+            }else{
+                int prevInterval [] = arr.get(arr.size()-1); // take last interval in arr 
+                if(a[0] <= prevInterval[1]){ // compare with a[0] that is 3 in [1,3] with prevInterval[1] is 6 for first iteration
+                    prevInterval[1] = Math.max(prevInterval[1],a[1]);  // take max of prevInterval[1] that is 6 or a[1] that is 3
+                }else{// if [1,3] we have and we get [8,10] then directly add [8,10]
+                    arr.add(a); //
+                }
+            }
+        }
+        return arr.toArray(new int[arr.size()][]);
     }
 }
