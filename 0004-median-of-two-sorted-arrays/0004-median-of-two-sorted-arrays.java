@@ -1,44 +1,65 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-double d=0.0f;
-long[]nums3=new long[nums1.length+nums2.length];
-if(nums1.length>=nums2.length)
-{ int i;
-for(i=0;i<nums1.length;i++)
-{
-nums3[i]=nums1[i];
-}
-for(int j=0;j<nums2.length;j++)
-{
-nums3[i]=nums2[j];
-i++;
-}
-}
-else if(nums2.length>=nums1.length)
-{
-int i;
-for(i=0;i<nums2.length;i++)
-{
-nums3[i]=nums2[i];
-}
-for(int j=0;j<nums1.length;j++)
-{
-nums3[i]=nums1[j];
-i++;
-}
-}
-Arrays.sort(nums3);
-if(nums3.length%2==0)
-{
-int mid=nums3.length/2;
-int mid1=(nums3.length/2)-1;
-d = (nums3[mid]+nums3[mid1])/2.0;
-}
-else if(nums3.length%2!=0)
-{
-int mid=(nums3.length-1)/2;
-d=nums3[mid];
-}
-return d;
-}
+        // int[] arr=new int[nums1.length+nums2.length];
+        // System.arraycopy(nums1,0,arr,0,nums1.length);
+        // System.arraycopy(nums2,0,arr,nums1.length,nums2.length);
+        // Arrays.sort(arr);
+        // int n=arr.length;
+
+        // int index=0;
+        // if(arr.length%2!=0){
+        //      index=n/2;
+        //     return (double)arr[index];
+        // }
+        // else{
+        //     index=n/2;
+        //     return (double)(arr[index-1]+arr[index])/2;
+        // }
+
+
+
+        if(nums1.length<nums2.length){
+            return findMedian(nums1,nums2);
+        }
+
+        else{
+            return findMedian(nums2,nums1);
+        }
+    }
+
+
+    private static double findMedian(int[]nums1,int[]nums2){
+        int low=0;
+        int high=nums1.length;
+
+        int n=nums1.length;
+        int m=nums2.length;
+
+        while(low<=high){
+            int  cut1=(low+high)/2;
+            int cut2=(m+n+1)/2-cut1;
+            int l1=cut1==0?Integer.MIN_VALUE:nums1[cut1-1];
+            int r1=cut1==n?Integer.MAX_VALUE:nums1[cut1];
+            int l2=cut2==0?Integer.MIN_VALUE:nums2[cut2-1];
+            int r2=cut2==m?Integer.MAX_VALUE:nums2[cut2];
+
+            if(l1<=r2 && l2<=r1){
+                if((n+m)%2==0){
+                    return (Math.max(l1,l2)+Math.min(r1,r2))/2.0;
+                }
+                else {  
+                    return Math.max(l1,l2);
+                }
+            }
+            else if(l1>r2){
+                high=cut1-1;
+            }
+            else{
+                low=cut1+1;
+            }
+        }
+
+        return 0.0;
+
+    }
 }
